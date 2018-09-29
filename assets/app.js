@@ -3,30 +3,23 @@
 
 
 //Array containing all the symbols from the URL
-//There are over 8000 of them
 const validationList = [];
 // Array containing original stock list
 const stocksList = ["AVB", "XOM", "LMT", "BA"];
 
-// https: //api.iextrading.com/1.0/stock/${stock}/ batch?types=quote,news,chart&range=1m&last=1
-//     https: //api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=1m&last=1
-
-//showInfo function re-displays the HTML to display the correct content
-// const validateInfo = function() {
-const queryURLAllsymbol = "https://api.iextrading.com/1.0/stock/ref-data/symbols";
-// The ajax method that will retrieve the display info for the button
+//The ajax call that retrieves symbols and populates the validationList array
 $.ajax({
-    url: queryURLAllsymbol,
+    url: "https://api.iextrading.com/1.0/ref-data/symbols",
     method: "GET"
 }).then(function(result) {
     console.log(result);
-    const allSymbols = result.quote.symbol;
-    validationList.push(allSymbols);
+    for (let i = 0; i < result.length; i++) {
+        validationList.push(result[i].symbol);
+    }
     console.log(validationList);
     // if input.val === validationList[k]
-    // /ref-data/symbols
 });
-// }
+
 
 //showInfo function re-displays the HTML to display the correct content
 const showInfo = function() {
