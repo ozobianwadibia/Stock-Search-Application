@@ -13,16 +13,19 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Search for a stock</h1>
+        <div class="jumbotron bg-dark text-white">
+            <div class="row text-center">
+                <div class="col-sm-12">
+                    <h1>Search for a Stock</h1>
+                </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row text-center">
             <div class="col-sm-12">
                 <form id="stockForm">
-                    <label for="stockInput">Please insert a stock symbol:</label>
+                    <label for="stockInput"><span class="labelOne">Please insert a stock symbol:</span></label>
+                    <br>
                     <input type="text" id="stockInput">
                     <br>
                     <!-- This button will induce a new stock to be added -->
@@ -30,21 +33,18 @@
                 </form>
             </div>
         </div>
-
-        <div class="row">
+        <div class="row text-center">
             <div class="col-sm-12">
                 <!-- All created buttons will be placed here -->
                 <div id="buttonsView"></div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-sm-12">
                 <!-- stocks info will be placed here -->
                 <div id="stocksView"></div>
             </div>
         </div>
-
     </div>
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="./assets/app.js"></script>

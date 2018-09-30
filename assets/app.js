@@ -1,7 +1,3 @@
-// company name, logo, price, and up to 
-// 10 news articles related to the stock from the iexTrading
-
-
 //Array containing all the symbols from the URL
 const validationList = [];
 // Array containing original stock list
@@ -12,20 +8,20 @@ $.ajax({
     url: "https://api.iextrading.com/1.0/ref-data/symbols",
     method: "GET"
 }).then(function(result) {
-    console.log(result);
+    // console.log(result);
     for (let i = 0; i < result.length; i++) {
         validationList.push(result[i].symbol);
     }
-    console.log(validationList);
-    // if input.val === validationList[k]
+    // console.log(validationList);
 });
 
+// https: //api.iextrading.com/1.0/stock/aapl/news/last/10
 
 //showInfo function re-displays the HTML to display the correct content
 const showInfo = function() {
     // Grab the stock symbol from the button clicked and add it to the queryURL
     const stock = $(this).attr('data-name');
-    const queryURLDisplay = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=1m&last=1`;
+    const queryURLDisplay = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=1m&last=10`;
 
     // The ajax method that will retrieve the display info for the button
     $.ajax({
@@ -34,33 +30,33 @@ const showInfo = function() {
     }).then(function(result) {
         console.log(result);
         // This 'div' holds the stock
-        const stocksDiv = $("<div>").addClass("stocksClass");
+        const stocksDiv = $("<div>").addClass("stocksClass card");
         // This variable stores the company name
         const companyName = result.quote.companyName;
         // Creating an element to display the company name
-        const name = $("<p>").text(`Company Name: ${companyName}`);
+        const name = $("<p>").text(`Company Name: ${companyName}`).addClass("card-header bg-secondary text-white");
         // Appending the name to our stocksDiv
         stocksDiv.append(name);
         // This variable stores the stock symbol
         const stockSymbol = result.quote.symbol;
         // Creating an element to display the stock symbol
-        const symbol = $("<p>").text(`Stock Symbol: ${stockSymbol}`);
+        const symbol = $("<p>").text(`Stock Symbol: ${stockSymbol}`).addClass("card-header");
         // Appending the symbol to our stockDiv
         stocksDiv.append(symbol);
         // Storing the price
         const stockPrice = result.quote.latestPrice;
         // This variable stores the price 
-        const price = $("<p>").text(`Stock Price: $${stockPrice}`);
+        const price = $("<p>").text(`Stock Price: $${stockPrice}`).addClass("card-header");
         // Appending the price to our stocksDiv
         stocksDiv.append(price);
         // Storing the first news summary
         const companyNews = result.news[0].summary;
         // Creating an element to display the news summary
-        const summaryHolder = $("<p>").text(`News Headline: ${companyNews}`);
+        const summaryHolder = $("<p>").text(`News Summary: ${companyNews}`).addClass("card-body");
         // Appending the summary to our stocksDiv
         stocksDiv.append(summaryHolder);
         // Finally adding the stocksDiv to the DOM
-        $("#stocksView").append(stocksDiv);
+        $("#stocksView").prepend(stocksDiv);
     });
 }
 
@@ -89,8 +85,15 @@ const addButton = function(event) {
     event.preventDefault();
     // This line will grab the text from the input box
     const newStock = $("#stockInput").val().trim().toUpperCase();
-    // The stock from the textbox is then added to our array
-    stocksList.push(newStock);
+    //for loop to check presence of new stock
+    for (let a = 0; a < validationList.length; a++) {
+        if (newStock === validationList[a]) {
+            // The new stock from the textbox is then added to our array
+            // if found in validationList
+            stocksList.push(newStock);
+        }
+    }
+
     // Deletes the contents of the input
     $("#stockInput").val("");
     // calling display which handles the processing of the stocksList array
