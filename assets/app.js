@@ -15,13 +15,14 @@ $.ajax({
     // console.log(validationList);
 });
 
-// https: //api.iextrading.com/1.0/stock/aapl/news/last/10
+
+// https: //api.iextrading.com/1.0/stock/market/batch?symbols=${stock}&types=quote,news&range=1y&last=10
 
 //showInfo function re-displays the HTML to display the correct content
 const showInfo = function() {
     // Grab the stock symbol from the button clicked and add it to the queryURL
     const stock = $(this).attr('data-name');
-    const queryURLDisplay = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=1m&last=10`;
+    const queryURLDisplay = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=10y&last=10`;
 
     // The ajax method that will retrieve the display info for the button
     $.ajax({
@@ -49,12 +50,16 @@ const showInfo = function() {
         const price = $("<p>").text(`Stock Price: $${stockPrice}`).addClass("card-header");
         // Appending the price to our stocksDiv
         stocksDiv.append(price);
-        // Storing the first news summary
-        const companyNews = result.news[0].summary;
-        // Creating an element to display the news summary
-        const summaryHolder = $("<p>").text(`News Summary: ${companyNews}`).addClass("card-body");
-        // Appending the summary to our stocksDiv
-        stocksDiv.append(summaryHolder);
+        //Array to store the news summaries
+        const companyNews = [];
+        // for loop to fill up the array
+        for (let r = 0; r < result.news.length; r++) {
+            companyNews.push(result.news[r].summary);
+        }
+        //for loop to append the summaries to stocksDiv
+        for (let s = 0; s < companyNews.length; s++) {
+            stocksDiv.append($("<p>").text(`News Summary: ${companyNews[s]}`).addClass("card-body"));
+        }
         // Finally adding the stocksDiv to the DOM
         $("#stocksView").prepend(stocksDiv);
     });

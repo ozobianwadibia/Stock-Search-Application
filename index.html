@@ -8,6 +8,8 @@
     <title>Stock Search Application</title>
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/app.css">
 </head>
 
@@ -16,20 +18,23 @@
         <div class="jumbotron bg-dark text-white">
             <div class="row text-center">
                 <div class="col-sm-12">
-                    <h1>Search for a Stock</h1>
+                    <h1>Search For A Stock</h1>
+                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-suitcase"></i>
+                    <i class="fas fa-chart-bar"></i>
                 </div>
             </div>
         </div>
 
         <div class="row text-center">
             <div class="col-sm-12">
-                <form id="stockForm">
-                    <label for="stockInput"><span class="labelOne">Please insert a stock symbol:</span></label>
-                    <br>
-                    <input type="text" id="stockInput">
-                    <br>
+                <form>
+                    <div class="form-group">
+                        <label for="stockInput"><span class="labelOne">Enter Stock Symbol:</span></label>
+                        <input type="text" class="form-control text-center font-weight-bold" id="stockInput">
+                    </div>
                     <!-- This button will induce a new stock to be added -->
-                    <input id="addStock" type="submit" value="Click to add a Stock Symbol">
+                    <button type="submit" class="btn btn-dark" id="addStock">Click to add a Stock Symbol</button>
                 </form>
             </div>
         </div>
