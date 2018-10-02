@@ -16,8 +16,6 @@ $.ajax({
 });
 
 
-// https: //api.iextrading.com/1.0/stock/market/batch?symbols=${stock}&types=quote,news&range=1y&last=10
-
 //showInfo function re-displays the HTML to display the correct content
 const showInfo = function() {
     // Grab the stock symbol from the button clicked and add it to the queryURL
@@ -100,7 +98,8 @@ const addButton = function(event) {
             stocksList.push(newStock);
         } else {
             if (validationList[a] === newStock && stocksList.includes(newStock)) {
-                alert("The stock is already in the List. Enter another.");
+                // displays a modal if an item is already present
+                $("#inputModal").modal();
             }
         }
     }
