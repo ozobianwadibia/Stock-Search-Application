@@ -22,7 +22,7 @@ $.ajax({
 const showInfo = function() {
     // Grab the stock symbol from the button clicked and add it to the queryURL
     const stock = $(this).attr('data-name');
-    const queryURLDisplay = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=10y&last=10`;
+    const queryURLDisplay = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=5y&last=10`;
 
     // The ajax method that will retrieve the display info for the button
     $.ajax({
@@ -77,6 +77,8 @@ const display = function() {
         newButton.addClass("stockButton");
         // Adding a data-attribute
         newButton.attr("data-name", stocksList[k]);
+        //Adding an id attribute
+        newButton.attr("id", "stkButton");
         // Providing the initial button text
         newButton.text(stocksList[k]);
         // Adding the button to the buttons-view div
@@ -92,13 +94,16 @@ const addButton = function(event) {
     const newStock = $("#stockInput").val().trim().toUpperCase();
     //for loop to check presence of new stock
     for (let a = 0; a < validationList.length; a++) {
-        if (newStock === validationList[a]) {
+        if (validationList[a] === newStock && !stocksList.includes(newStock)) {
             // The new stock from the textbox is then added to our array
             // if found in validationList
             stocksList.push(newStock);
+        } else {
+            if (validationList[a] === newStock && stocksList.includes(newStock)) {
+                alert("The stock is already in the List. Enter another.");
+            }
         }
     }
-
     // Deletes the contents of the input
     $("#stockInput").val("");
     // calling display which handles the processing of the stocksList array
@@ -110,6 +115,5 @@ $("#addStock").on("click", addButton);
 
 // Adding a click event listener to all elements with a class of 'stockButton'
 $("#buttonsView").on("click", ".stockButton", showInfo);
-
 // Calling the display function to display the intial buttons
 display();
