@@ -109,7 +109,7 @@ const addButton = function(event) {
     display();
 }
 
-// Even listener for #add-stock button
+// Event listener for #add-stock button
 $("#addStock").on("click", addButton);
 
 // Adding a click event listener to all elements with a class of 'stockButton'
